@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class MongoDBConfig {
 
     public static MongoTemplate getMongoTemplate(){
-        return new MongoTemplate(new MongoClient(Constants.HOST_NAME,Constants.PORT_NUMBER), Constants.DATABASE_NAME);
+        return new MongoTemplate(new MongoClient(Constants.HOST_NAME,Constants.DATABASE_PORT_NUMBER), Constants.DATABASE_NAME);
     }
 
 }

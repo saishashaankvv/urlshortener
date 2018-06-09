@@ -2,9 +2,13 @@ package com.assignment.urlshortener.DTO;
 
 import com.assignment.urlshortener.Commons.Constants;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
+import java.util.Date;
+
 @Document(collection = Constants.URL_COLLECTION)
 public class UrlShortenDto implements Serializable {
 
@@ -12,8 +16,6 @@ public class UrlShortenDto implements Serializable {
     private String id;
     private String url;
     private String short_url;
-
-
 
     public String getUrl() {
         return url;
@@ -47,4 +49,5 @@ public class UrlShortenDto implements Serializable {
     public String getShort_url(){
         return short_url;
     }
+
 }

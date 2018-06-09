@@ -1,6 +1,7 @@
 package com.assignment.urlshortener.Service;
 
 import com.assignment.urlshortener.Algorithm.ShortURL;
+import com.assignment.urlshortener.Commons.Constants;
 import com.assignment.urlshortener.DTO.UrlShortenDto;
 import com.assignment.urlshortener.Repository.UrlShortenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +26,25 @@ public class UrlShortenServiceImpl implements UrlShortenService{
         UrlShortenDto url_check = urlShortenRepository.checkUrl(url.getUrl());
         if(url_check == null){
             InetAddress inetAddress = InetAddress.getLocalHost();
-            url.setId(ShortURL.encode());
-            url.setShort_url("http://"+inetAddress.getHostAddress()+"/"+url.getId());
-            System.out.println("url_short = "+url.getShort_url());
+            String urlHash = ShortURL.encode();
+            url.setId(urlHash);
+            if(!url.getUrl().startsWith("http://")) {
+                url.setUrl("http://" + url.getUrl());
+            }
+            url.setShort_url("http://"+inetAddress.getHostAddress()+":"+Constants.SERVER_PORT_NUMBER+"/"+url.getId());
             if(urlShortenRepository.StoreUrl(url)){
             url_short = url.getShort_url();
             }else{
                 url_short = "insert failed";
             }
         }else{
-            System.out.println("URL has been used before. Fetch it and send it to Front End");
             url_short = url_check.getShort_url();
         }
         return url_short;
+    }
+
+    @Override
+    public String fetchOriginalUrl(String id) {
+        return urlShortenRepository.fetchOriginalUrl(id);
     }
 }

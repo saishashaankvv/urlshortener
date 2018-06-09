@@ -8,4 +8,5 @@ import java.net.UnknownHostException;
 
 public interface UrlShortenService {
      String shortenUrl(UrlShortenDto url) throws UnknownHostException;
+     String fetchOriginalUrl(String id);
 }

@@ -26,4 +26,10 @@ public class UrlShortenRepositoryImpl implements UrlShortenRepository {
         }
 
     }
+
+    @Override
+    public String fetchOriginalUrl(String id) {
+        Query query = new Query(Criteria.where("_id").is(id));
+        return MongoDBConfig.getMongoTemplate().findOne(query,UrlShortenDto.class,Constants.URL_COLLECTION).getUrl();
+    }
 }

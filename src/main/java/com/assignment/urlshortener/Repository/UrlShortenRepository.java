@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 public interface UrlShortenRepository{
       UrlShortenDto checkUrl(String url);
-     boolean StoreUrl(UrlShortenDto url);
+      boolean StoreUrl(UrlShortenDto url);
+      String fetchOriginalUrl(String id);
 }
