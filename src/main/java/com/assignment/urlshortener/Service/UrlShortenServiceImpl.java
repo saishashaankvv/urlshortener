@@ -23,15 +23,21 @@ public class UrlShortenServiceImpl implements UrlShortenService{
     @Override
     public String shortenUrl(UrlShortenDto url) throws UnknownHostException {
         String url_short;
-        UrlShortenDto url_check = urlShortenRepository.checkUrl(url.getUrl());
+        UrlShortenDto url_check;
+        if(!url.getUrl().startsWith("http://")) {
+            url_check = urlShortenRepository.checkUrl("http://"+url.getUrl().toLowerCase());
+        }else{
+            url_check = urlShortenRepository.checkUrl("http://"+url.getUrl().toLowerCase());
+        }
         if(url_check == null){
             InetAddress inetAddress = InetAddress.getLocalHost();
             String urlHash = ShortURL.encode();
+            System.out.println(urlHash);
             url.setId(urlHash);
             if(!url.getUrl().startsWith("http://")) {
-                url.setUrl("http://" + url.getUrl());
+                url.setUrl("http://" + url.getUrl().toLowerCase());
             }
-            url.setShort_url("http://"+inetAddress.getHostAddress()+":"+Constants.SERVER_PORT_NUMBER+"/"+url.getId());
+            url.setShort_url("http://"+inetAddress.getHostAddress()+":"+Constants.SERVER_PORT_NUMBER+"/url/"+urlHash);
             if(urlShortenRepository.StoreUrl(url)){
             url_short = url.getShort_url();
             }else{

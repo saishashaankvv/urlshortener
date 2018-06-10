@@ -21,6 +21,7 @@ import java.net.UnknownHostException;
 
 @RestController
 @CrossOrigin
+@RequestMapping(value = "url")
 public class UrlShortenController {
 
     private final UrlShortenService urlShortenService;

@@ -3,6 +3,7 @@ package com.assignment.urlshortener.Repository;
 import com.assignment.urlshortener.Commons.Constants;
 import com.assignment.urlshortener.Config.MongoDBConfig;
 import com.assignment.urlshortener.DTO.UrlShortenDto;
+import com.mongodb.MongoSocketException;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
@@ -12,7 +13,7 @@ public class UrlShortenRepositoryImpl implements UrlShortenRepository {
     @Override
     public UrlShortenDto checkUrl(String url) {
         Query query = new Query(Criteria.where("url").is(url.toLowerCase()));
-        return MongoDBConfig.getMongoTemplate().findOne(query,UrlShortenDto.class,Constants.URL_COLLECTION);
+        return MongoDBConfig.getMongoTemplate().findOne(query, UrlShortenDto.class, Constants.URL_COLLECTION);
     }
 
     @Override
